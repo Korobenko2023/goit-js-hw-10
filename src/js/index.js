@@ -25,17 +25,14 @@ fetchCatByBreed(selectedBreedId)
  .then((catData) => { 
     const breedInfo = catData[0].breeds[0];  
     catInfo.innerHTML = `
-                <p>Breed: ${breedInfo.name}</p>
-                <p>Description: ${breedInfo.description}</p>
-                <p>Temperament: ${breedInfo.temperament}</p>
-                <img src="${catData[0].url}" alt="${breedInfo.name}">
-            `;
-    // catInfo.innerHTML = `
-    //             <p>Breed: ${catData[0].breeds[0].name}</p>
-    //             <p>Description: ${catData[0].breeds[0].description}</p>
-    //             <p>Temperament: ${catData[0].breeds[0].temperament}</p>
-    //             <img src="${catData[0].url}" alt="${catData[0].breeds[0].name}">
-    //         `;
+        <img class= "cat-info-img" src="${catData[0].url}" width="300" alt="${breedInfo.name}">
+        <div class= "cat">
+        <h2>${breedInfo.name}</h2>
+        <p class= "cat-info-text">${breedInfo.description}</p>
+        <p class= "cat-info-text-bold">Temperament: <span class= "cat-info-text-temp">${breedInfo.temperament}</span></p>
+        </div>
+                
+    `;
 })
  .catch(error => {
   Notiflix.Notify.failure('Error fetching cat info:', error);
