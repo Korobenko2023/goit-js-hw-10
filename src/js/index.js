@@ -19,9 +19,9 @@ fetchBreeds()
 
     breedSelect.classList.remove('is-hidden'); 
      
-    new SlimSelect({
-        select: '#breed-select'
-      })
+    // new SlimSelect({
+    //     select: '#breed-select'
+    //   })
 })
 .catch(error => {
     Notiflix.Notify.failure('Error fetching cat info: ', error);         
