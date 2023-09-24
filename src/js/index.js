@@ -1,13 +1,10 @@
 import { fetchBreeds, fetchCatByBreed } from './cat-api';
 import Notiflix from 'notiflix';
-import SlimSelect from 'slim-select'
-import "slim-select/dist/slimselect.css";
 
 const breedSelect = document.getElementById('breed-select');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
-
   
 fetchBreeds()
 .then((breeds) => {       
@@ -18,10 +15,7 @@ fetchBreeds()
     breedSelect.insertAdjacentHTML('afterbegin', markup);
 
     breedSelect.classList.remove('is-hidden'); 
-     
-    // new SlimSelect({
-    //     select: '#breed-select'
-    //   })
+
 })
 .catch(error => {
     Notiflix.Notify.failure('Error fetching cat info: ', error);         
@@ -51,7 +45,7 @@ fetchCatByBreed(selectedBreedId)
     `;
     catInfo.classList.remove('is-hidden'); 
     } else {
-        error.style.display = 'block'; 
+        error.style.display = 'block';         
         breedSelect.style.display = 'none'; 
     }      
 })
@@ -59,7 +53,7 @@ fetchCatByBreed(selectedBreedId)
     Notiflix.Notify.failure('Error fetching cat info: ', error);
     
  })
-.finally(() => {    
+.finally(() => {  
    loader.style.display = 'none';    
     });
 });
