@@ -7,6 +7,7 @@ const breedSelect = document.getElementById('breed-select');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
+
   
 fetchBreeds()
 .then((breeds) => {       
@@ -17,27 +18,28 @@ fetchBreeds()
     breedSelect.insertAdjacentHTML('afterbegin', markup);
 
     breedSelect.classList.remove('is-hidden'); 
-  
+     
     new SlimSelect({
         select: '#breed-select'
       })
 })
 .catch(error => {
-    Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', error);          
+    Notiflix.Notify.failure('Error fetching cat info: ', error);         
 })
-.finally(() => {     
+.finally(() => {        
     loader.style.display = 'none';  
-    breedSelect.style.display = 'none';   
 });
 
 breedSelect.addEventListener('change', event => {
     event.preventDefault();
-    const selectedBreedId = breedSelect.value;   
+    const selectedBreedId = breedSelect.value;  
+    loader.classList.remove('is-hidden');  
     loader.style.display = 'block';  
     catInfo.innerHTML = '';
           
 fetchCatByBreed(selectedBreedId)
- .then((catData) => {    
+ .then((catData) => { 
+    if (catData.length > 0) {   
     const breedInfo = catData[0].breeds[0];  
     catInfo.innerHTML = `
         <img class= "cat-info-img" src="${catData[0].url}" width="300" alt="${breedInfo.name}">
@@ -48,15 +50,17 @@ fetchCatByBreed(selectedBreedId)
         </div>                
     `;
     catInfo.classList.remove('is-hidden'); 
+    } else {
+        error.style.display = 'block'; 
+        breedSelect.style.display = 'none'; 
+    }      
 })
  .catch(error => {
-    breedSelect.style.display = 'none';  
-    Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', error);   
+    Notiflix.Notify.failure('Error fetching cat info: ', error);
     
  })
-.finally(() => {
-   loader.style.display = 'none';
-   breedSelect.style.display = 'none';      
+.finally(() => {    
+   loader.style.display = 'none';    
     });
 });
 
