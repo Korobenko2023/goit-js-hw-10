@@ -13,13 +13,15 @@ function showError() {
   }
   
 fetchBreeds()
-.then((breeds) => {      
-    const markup = breeds.map(({id, name}) => {              
+.then((breeds) => {       
+    const markup = breeds.map(({id, name}) => {                
         return `<option value="${id}">${name}</option>`
     }).join("");
    
     breedSelect.insertAdjacentHTML('afterbegin', markup);
-    
+
+    breedSelect.classList.remove('is-hidden'); 
+  
     new SlimSelect({
         select: '#breed-select'
       })
@@ -29,16 +31,16 @@ fetchBreeds()
     showError();    
 })
 .finally(() => {     
-    loader.style.display = 'none';      
+    loader.style.display = 'none';    
 });
 
 breedSelect.addEventListener('change', event => {
     event.preventDefault();
     const selectedBreedId = breedSelect.value;   
-    loader.style.display = 'block';   
+    loader.style.display = 'block';    
       
 fetchCatByBreed(selectedBreedId)
- .then((catData) => { 
+ .then((catData) => {    
     const breedInfo = catData[0].breeds[0];  
     catInfo.innerHTML = `
         <img class= "cat-info-img" src="${catData[0].url}" width="300" alt="${breedInfo.name}">
@@ -48,13 +50,14 @@ fetchCatByBreed(selectedBreedId)
         <p class= "cat-info-text-bold">Temperament: <span class= "cat-info-text-temp">${breedInfo.temperament}</span></p>
         </div>                
     `;
+    catInfo.classList.remove('is-hidden'); 
 })
  .catch(error => {
   Notiflix.Notify.failure('Error fetching cat info: ', error);
     showError(); 
  })
 .finally(() => {
-   loader.style.display = 'none';         
+   loader.style.display = 'none';        
     });
 });
 
