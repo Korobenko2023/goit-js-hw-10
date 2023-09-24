@@ -7,12 +7,6 @@ const breedSelect = document.getElementById('breed-select');
 const catInfo = document.querySelector('.cat-info');
 const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
-
-function showError() {
-    error.style.display = 'block'; 
-    breedSelect.setAttribute('disabled', 'true'); 
-    // breedSelect.style.display = 'none';    
-  }
   
 fetchBreeds()
 .then((breeds) => {       
@@ -29,11 +23,11 @@ fetchBreeds()
       })
 })
 .catch(error => {
-    Notiflix.Notify.failure('Error fetching breeds: ', error);    
-    showError();     
+    Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', error);          
 })
 .finally(() => {     
-    loader.style.display = 'none';    
+    loader.style.display = 'none';  
+    breedSelect.style.display = 'none';   
 });
 
 breedSelect.addEventListener('change', event => {
@@ -56,11 +50,13 @@ fetchCatByBreed(selectedBreedId)
     catInfo.classList.remove('is-hidden'); 
 })
  .catch(error => {
-  Notiflix.Notify.failure('Error fetching cat info: ', error);
-  showError(); 
+    breedSelect.style.display = 'none';  
+    Notiflix.Notify.failure('Oops! Something went wrong! Try reloading the page!', error);   
+    
  })
 .finally(() => {
-   loader.style.display = 'none';        
+   loader.style.display = 'none';
+   breedSelect.style.display = 'none';      
     });
 });
 
