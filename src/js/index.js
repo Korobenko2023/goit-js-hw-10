@@ -10,7 +10,8 @@ const error = document.querySelector('.error');
 
 function showError() {
     error.style.display = 'block'; 
-    breedSelect.style.display = 'none';     
+    breedSelect.setAttribute('disabled', 'true'); 
+    // breedSelect.style.display = 'none';    
   }
   
 fetchBreeds()
