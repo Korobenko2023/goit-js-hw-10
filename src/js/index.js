@@ -9,7 +9,8 @@ const loader = document.querySelector('.loader');
 const error = document.querySelector('.error');
 
 function showError() {
-    error.style.display = 'block';
+    error.style.display = 'block'; 
+    breedSelect.style.display = 'none';     
   }
   
 fetchBreeds()
@@ -27,8 +28,8 @@ fetchBreeds()
       })
 })
 .catch(error => {
-    Notiflix.Notify.failure('Error fetching breeds: ', error);
-    showError();    
+    Notiflix.Notify.failure('Error fetching breeds: ', error);    
+    showError();     
 })
 .finally(() => {     
     loader.style.display = 'none';    
@@ -37,8 +38,9 @@ fetchBreeds()
 breedSelect.addEventListener('change', event => {
     event.preventDefault();
     const selectedBreedId = breedSelect.value;   
-    loader.style.display = 'block';    
-      
+    loader.style.display = 'block';  
+    catInfo.innerHTML = '';
+          
 fetchCatByBreed(selectedBreedId)
  .then((catData) => {    
     const breedInfo = catData[0].breeds[0];  
@@ -54,7 +56,7 @@ fetchCatByBreed(selectedBreedId)
 })
  .catch(error => {
   Notiflix.Notify.failure('Error fetching cat info: ', error);
-    showError(); 
+  showError(); 
  })
 .finally(() => {
    loader.style.display = 'none';        
