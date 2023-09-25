@@ -26,13 +26,14 @@ img {
 
  .container {
   width: 100%;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
   margin-left: auto;
   margin-right: auto;
  }
 
 .breed-select {
+  width: 23%;
   padding: 10px;
   margin-bottom: 20px;
 }
@@ -91,6 +92,4 @@ img {
 .cat-info-text-temp {
   font-weight: 400;
 }
-
-
 
