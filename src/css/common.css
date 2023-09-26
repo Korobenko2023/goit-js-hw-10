@@ -38,6 +38,30 @@ img {
   margin-bottom: 20px;
 }
 
+.error {
+  font-size: xx-large;
+  display: none;
+  color: red;
+}
+   
+.cat-info {
+  display: flex;
+  flex-direction: row;
+  gap: 10px; 
+}
+
+.cat-info-text {
+  margin-bottom: 15px;
+}
+
+.cat-info-text-bold {
+  font-weight: 700;
+}
+
+.cat-info-text-temp {
+  font-weight: 400;
+}
+
 .loader {
   font-size: 48px;
   display: inline-block;
@@ -69,27 +93,4 @@ img {
   }
 }
 
-.error {
-  font-size: xx-large;
-  display: none;
-  color: red;
-}
-   
-.cat-info {
-  display: flex;
-  flex-direction: row;
-  gap: 10px; 
-}
-
-.cat-info-text {
-  margin-bottom: 15px;
-}
-
-.cat-info-text-bold {
-  font-weight: 700;
-}
-
-.cat-info-text-temp {
-  font-weight: 400;
-}
 
