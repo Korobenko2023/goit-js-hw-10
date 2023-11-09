@@ -10,19 +10,6 @@ const refs = {
     catInfo: document.querySelector('.cat-info'),
 };
 
-function onSelect () {
-    const select = new SlimSelect({
-        select: '#breed-select'
-      })
-}
-
-function destroySelect () {
-    const select = new SlimSelect({
-        select: '#breed-select'
-      })
-      select.destroy()
-}
-
 fetchBreeds()
 .then((breeds) => {       
     const markup = breeds.map(({id, name}) => {                
@@ -30,8 +17,11 @@ fetchBreeds()
     }).join("");
    
     refs.breedSelect.insertAdjacentHTML('afterbegin', markup);
-    refs.breedSelect.classList.remove('is-hidden'); 
-    onSelect ()    
+    refs.breedSelect.classList.remove('visually-hidden'); 
+
+    new SlimSelect({
+        select: '#breed-select'
+      })     
 })
 .catch(error => {
     Notiflix.Notify.failure('Error fetching cat info: ', error);         
@@ -42,7 +32,8 @@ fetchBreeds()
 
  refs.breedSelect.addEventListener('change', event => {
     event.preventDefault();
-    const selectedBreedId = refs.breedSelect.value;  
+    const selectedBreedId = refs.breedSelect.value;
+    console.log(selectedBreedId);  
     refs.loader.style.display = 'block';  
     refs.catInfo.innerHTML = '';
           
@@ -58,11 +49,10 @@ fetchCatByBreed(selectedBreedId)
         <p class= "cat-info-text-bold">Temperament: <span class= "cat-info-text-temp">${breedInfo.temperament}</span></p>
         </div>                
     `;
-    refs.catInfo.classList.remove('is-hidden'); 
+    refs.catInfo.classList.remove('visually-hidden'); 
     } else {          
         refs.error.style.display = 'block';
-        refs.breedSelect.classList.add('is-hidden');  
-        destroySelect ();    
+        refs.breedSelect.classList.add('visually-hidden');  
       }      
 })
  .catch(error => {
@@ -72,3 +62,5 @@ fetchCatByBreed(selectedBreedId)
     refs.loader.style.display = 'none';      
     });
 });
+
+
